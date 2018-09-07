@@ -1,0 +1,12 @@
+*.o
+*.a
+*.so
+*.d
+*.Tsymbols
+*.gcda
+*.gcno
+*~
+~*.~*
+/.*project
+.settings/*
+bs_device_*
