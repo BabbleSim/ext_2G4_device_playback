@@ -69,7 +69,10 @@ void close_input_files(){
 }
 
 void read_next_tx(){
-  if ( feof(tx_f) ){
+
+  if (!tx_f) {
+    ;
+  } else if (feof(tx_f)) {
     fclose(tx_f);
     tx_f = NULL;
   } else {
@@ -126,7 +129,10 @@ void read_next_tx(){
 }
 
 void read_next_rx(){
-  if ( feof(rx_f) ){
+
+  if ( !rx_f ){
+    ;
+  } else if (feof(rx_f)) {
     fclose(rx_f);
     rx_f = NULL;
   } else {
@@ -178,7 +184,10 @@ void read_next_rx(){
 }
 
 void read_next_RSSI() {
-  if (feof(RSSI_f)) {
+
+  if (!RSSI_f){
+    ;
+  } else if (feof(RSSI_f)) {
     fclose(RSSI_f);
     RSSI_f = NULL;
   } else {
