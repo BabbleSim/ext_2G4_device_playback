@@ -79,6 +79,7 @@ void read_next_tx(){
     int read;
     double center_freq = 0;
     double power = 0;
+    p2G4_freq_t freq;
     p2G4_tx_t *txs = &tx_s;
     read = fscanf(tx_f,
         "%"SCNtime",%"SCNtime",\
@@ -102,7 +103,9 @@ void read_next_tx(){
 
         &txs->packet_size);
 
-    p2G4_freq_from_d(center_freq, 0, &txs->radio_params.center_freq);
+    p2G4_freq_from_d(center_freq, 0, &freq);
+
+    txs->radio_params.center_freq = freq;
     txs->power_level = p2G4_power_from_d(power);
 
     if (read < 9) {
@@ -139,6 +142,7 @@ void read_next_rx(){
     int read;
     double center_freq = 0;
     double ant_gain = 0;
+    p2G4_freq_t freq;
     p2G4_rx_t *Req = &rx_s;
     read = fscanf(rx_f,
         "%"SCNtime",%"SCNu32",%"SCNx32",%"SCNu16",\
@@ -165,7 +169,9 @@ void read_next_rx(){
         &Req->abort.recheck_time
         );
 
-    p2G4_freq_from_d(center_freq, 0, &Req->radio_params.center_freq);
+    p2G4_freq_from_d(center_freq, 0, &freq);
+
+    Req->radio_params.center_freq = freq;
     Req->antenna_gain = p2G4_power_from_d(ant_gain);
 
     if ( read < 12 ){
@@ -195,6 +201,7 @@ void read_next_RSSI() {
     double center_freq = 0;
     double ant_gain = 0;
     p2G4_rssi_t *Req = &RSSI_s;
+    p2G4_freq_t freq;
     read = fscanf(RSSI_f,
         "%"SCNtime","
         "%"SCNu16","
@@ -206,7 +213,9 @@ void read_next_RSSI() {
         &ant_gain
         );
 
-    p2G4_freq_from_d(center_freq, 0, &Req->radio_params.center_freq);
+    p2G4_freq_from_d(center_freq, 0, &freq);
+
+    Req->radio_params.center_freq = freq;
     Req->antenna_gain = p2G4_power_from_d(ant_gain);
 
     if ( read < 3 ){
